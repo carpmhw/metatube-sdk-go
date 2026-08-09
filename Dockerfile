@@ -3,8 +3,10 @@ FROM golang:alpine AS builder
 WORKDIR /src
 COPY . /src
 
+ARG BUILD_TAGS=""
+
 RUN apk add --update --no-cache --no-progress make git \
-    && make server
+    && make server BUILD_TAGS="${BUILD_TAGS}"
 
 FROM alpine:latest
 LABEL org.opencontainers.image.licenses=Apache-2.0
@@ -16,7 +18,6 @@ RUN apk add --update --no-cache --no-progress ca-certificates tzdata
 
 ENV GIN_MODE=release
 ENV PORT=8080
-ENV TOKEN=""
 ENV DSN=""
 ENV REQUEST_TIMEOUT=""
 ENV DB_MAX_IDLE_CONNS=0

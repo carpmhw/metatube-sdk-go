@@ -58,6 +58,21 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Build and Push (optional-dev)
+        if: github.ref == 'refs/heads/main'
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64
+          build-args: |
+            BUILD_TAGS=optional
+          tags: |
+            ghcr.io/metatube-community/metatube-server:optional-dev
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       - name: Build and Push (latest)
         if: startsWith(github.ref, 'refs/tags/')
         uses: docker/build-push-action@v7
@@ -69,5 +84,21 @@ jobs:
           tags: |
             ghcr.io/metatube-community/metatube-server:latest
             ghcr.io/metatube-community/metatube-server:${{ steps.shell.outputs.version }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and Push (optional)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64
+          build-args: |
+            BUILD_TAGS=optional
+          tags: |
+            ghcr.io/metatube-community/metatube-server:optional
+            ghcr.io/metatube-community/metatube-server:${{ steps.shell.outputs.version }}-optional
           cache-from: type=gha
           cache-to: type=gha,mode=max

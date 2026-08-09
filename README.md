@@ -14,6 +14,7 @@ Metadata Tube SDK in Golang.
     - [Contents](#contents)
     - [Features](#features)
     - [Installation](#installation)
+    - [Optional Providers](#optional-providers)
     - [Credits](#credits)
     - [License](#license)
 
@@ -44,6 +45,27 @@ the below Go command to install SDK.
 ```sh
 go get -u github.com/metatube-community/metatube-sdk-go
 ```
+
+## Optional Providers
+
+The default `latest`, versioned, and `dev` images include only the standard
+provider set. To use `AV-LEAGUE` and `MinnanoAV`, use the optional image:
+
+```sh
+docker pull ghcr.io/metatube-community/metatube-server:optional
+```
+
+The repository publishes `optional-dev` for the main branch and
+`<version>-optional` for versioned releases. For a local build, pass the
+optional build tag explicitly:
+
+```sh
+BUILD_TAGS=optional make server
+```
+
+`make development` no longer enables experimental providers implicitly. The
+previous `-tags experimental` build no longer includes `AV-LEAGUE`; use the
+`optional` tag instead.
 
 ## Credits
 

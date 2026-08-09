@@ -26,3 +26,9 @@ go.work.sum
 
 # Build files
 build/
+
+# OpenCode agent workspace (local tooling, do not commit)
+.opencode/
+.superpowers/
+openspec
+docs

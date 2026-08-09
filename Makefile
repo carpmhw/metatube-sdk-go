@@ -4,7 +4,7 @@ SERVER_NAME := metatube-server
 SERVER_CODE := cmd/server/main.go
 
 BUILD_DIR     := build
-BUILD_TAGS    :=
+BUILD_TAGS    ?=
 BUILD_FLAGS   := -v
 BUILD_COMMIT  := $(shell git rev-parse --short HEAD)
 BUILD_VERSION := $(shell git describe --abbrev=0 --tags HEAD | cut -d'v' -f 2)
@@ -45,7 +45,6 @@ WINDOWS_ARCH_LIST = \
 
 all: development
 
-development: BUILD_TAGS += experimental
 development:
 	$(GO_BUILD) -o $(BUILD_DIR)/$(SERVER_NAME) $(SERVER_CODE)
 
